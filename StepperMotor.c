@@ -34,14 +34,12 @@ ISR(TIMER0_COMPA_vect)
 		leftMotor.stepCount++;		
 		
 		//Calculate the next delay
-		leftMotor.delayCounter = calculateNextDelay(&leftMotor, &TCCR0B);
+		leftMotor.delayCounter = accelerateMotorToPoint(&leftMotor);	
 	}
 
 	//Set Interrupt Timer, since somtimes we need to wait a value larger then 255, modify delayCounter accordingly
 	OCR0A = eightBitTimerFix(&leftMotor);	
 }
-
-
 
 /* RIGHT MOTOR CONTROL */
 ISR(TIMER2_COMPA_vect)
@@ -57,76 +55,41 @@ ISR(TIMER2_COMPA_vect)
 		rightMotor.stepCount++;
 		
 		//Calculate the next delay
-		rightMotor.delayCounter = calculateNextDelay(&rightMotor, &TCCR2B);	
+		rightMotor.delayCounter = accelerateMotorToPoint(&rightMotor);
 	}
 	
 	//Set Interrupt Timer, since somtimes we need to wait a value larger then 255, modify delayCounter accordingly
-	OCR2A = eightBitTimerFix(&rightMotor);		
+	OCR2A = eightBitTimerFix(&rightMotor);	
 }
 
-void accelerateMotor(struct StepperMotor *motor, int continueTo)
-{
-	motor->accelCount++;
-	
-	//Calculate next interrupt delay
-	motor->currentStepDelay -= (float)(2.0 * motor->currentStepDelay) / (float)(4.0 * motor->accelCount + 1);
-	
-	//If we're at our target speed
-	if(motor->totalAccelSteps <= motor->accelCount)
+int accelerateMotorToPoint(struct StepperMotor *motor)
+{	
+	if(motor->stepAccel == 0)
 	{
-		motor->mode = continueTo;
-		motor->currentStepDelay = motor->minDelay;
-	}
-}
-
-void runMotor(struct StepperMotor *motor, int continueTo)
-{
-	//Reassign the interrupt delay as max speed 
-	motor->currentStepDelay = motor->minDelay;
-	
-	//If we're ready to decelerate, switch to DECEL
-	if(motor->stepCount >= motor->totalRunSteps)
-	{
-		motor->mode = continueTo;		
-	}
-}
-
-void decelerateMotor(struct StepperMotor *motor, int continueTo)
-{
-	motor->decelCount--;
-	motor->currentStepDelay += (float)(2.0 * motor->currentStepDelay) / (float)(4.0 * motor->decelCount + 1);
-	
-	//If we're at the stopping point
-	if(motor->decelCount <= motor->decelStop)
-	{
-		motor->mode = continueTo;
-	}
-}
-
-//Function that 
-int calculateNextDelay(struct StepperMotor *motor, volatile uint8_t *shutoffPort)
-{
-	switch(motor->mode)
-	{	
-		//Accelerate to max Speed
-		case ACCEL:			
-			accelerateMotor(motor, RUN);				
-			break;
-		
-		//Run at max speed
-		case RUN:
-			runMotor(motor, DECEL);
-			break;
+		//Need to Accelerate
+		if(motor->currentStepDelay > motor->targetDelay)
+		{	
+			motor->tempCount++;
+			motor->currentStepDelay -= (float)(2.0 * motor->currentStepDelay) / (float)(4.0 * motor->tempCount + 1);
 			
-		//Decelerate to exit speed
-		case DECEL:			
-			decelerateMotor(motor, STOP);
-			break;
+			if(motor->currentStepDelay < motor->targetDelay)
+			{	
+				motor->currentStepDelay = motor->targetDelay;
+				motor->stepAccel = 1 ;
+			}
+		}
+		//Need to decelerate 
+		if(motor->currentStepDelay < motor->targetDelay)
+		{		
+			motor->tempCount--;
+			motor->currentStepDelay += (float)(2.0 * motor->currentStepDelay) / (float)(4.0 * motor->tempCount + 1);
 			
-		case STOP:
-			//(*shutoffPort) = 0;//Shut off timer (prescalar set to 0 with CTC still enabled)
-			//enableDrive(0, 0);
-			break;
+			if(motor->currentStepDelay > motor->targetDelay)
+			{
+				motor->currentStepDelay = motor->targetDelay;
+				motor->stepAccel = 1;
+			}
+		}	
 	}
 	
 	return motor->currentStepDelay;
@@ -198,7 +161,7 @@ void setDirection(int left, int right)
 int eightBitTimerFix(struct StepperMotor *motor)
 {
 	int returnNum;
-	
+
 	if(motor->delayCounter <= 255)
 	{
 		returnNum = motor->delayCounter;
@@ -209,7 +172,7 @@ int eightBitTimerFix(struct StepperMotor *motor)
 		motor->delayCounter -= 255;
 		returnNum = 255;
 	}
-	
+
 	return returnNum;
 }
 
@@ -217,7 +180,11 @@ void turnOnTimers(int one, int two)
 {
 	if(one)
 		TCCR0B |= (1 << CS01) | (1 << CS00);
+	else
+		TCCR0B &= ~((1 << CS01) | (1 << CS00));
 		
 	if(two)
 		TCCR2B |= (1 << CS22);
+	else	
+		TCCR2B &= ~(1 << CS22);
 }

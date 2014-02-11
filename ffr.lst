@@ -1,0 +1,83 @@
+   1               		.file	"ffr.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21 0000 CF92      		push r12
+  22 0002 DF92      		push r13
+  23 0004 EF92      		push r14
+  24 0006 FF92      		push r15
+  25 0008 0F93      		push r16
+  26 000a 1F93      		push r17
+  27               	/* prologue: function */
+  28               	/* frame size = 0 */
+  29               	.LM2:
+  30 000c 0E94 0000 		call setupStepperMotor
+  31               	.LM3:
+  32 0010 0E94 0000 		call USART_init
+  33               	.LM4:
+  34 0014 80E0      		ldi r24,lo8(0)
+  35 0016 90E0      		ldi r25,hi8(0)
+  36 0018 60E0      		ldi r22,lo8(0)
+  37 001a 70E0      		ldi r23,hi8(0)
+  38 001c 0E94 0000 		call setDirection
+  39               	.LM5:
+  40 0020 63E5      		ldi r22,lo8(4691)
+  41 0022 72E1      		ldi r23,hi8(4691)
+  42 0024 80E0      		ldi r24,hlo8(4691)
+  43 0026 90E0      		ldi r25,hhi8(4691)
+  44 0028 40E0      		ldi r20,lo8(0)
+  45 002a 50E0      		ldi r21,hi8(0)
+  46 002c 28EE      		ldi r18,lo8(1000)
+  47 002e 33E0      		ldi r19,hi8(1000)
+  48 0030 00E0      		ldi r16,lo8(0)
+  49 0032 10E0      		ldi r17,hi8(0)
+  50 0034 F8E8      		ldi r31,lo8(5000)
+  51 0036 EF2E      		mov r14,r31
+  52 0038 F3E1      		ldi r31,hi8(5000)
+  53 003a FF2E      		mov r15,r31
+  54 003c E8EE      		ldi r30,lo8(1000)
+  55 003e CE2E      		mov r12,r30
+  56 0040 E3E0      		ldi r30,hi8(1000)
+  57 0042 DE2E      		mov r13,r30
+  58 0044 0E94 0000 		call straight
+  59               	.LM6:
+  60 0048 80E0      		ldi r24,lo8(0)
+  61 004a 90E0      		ldi r25,hi8(0)
+  62 004c 60E0      		ldi r22,lo8(0)
+  63 004e 70E0      		ldi r23,hi8(0)
+  64 0050 0E94 0000 		call enableDrive
+  65               	.LM7:
+  66 0054 80E0      		ldi r24,lo8(0)
+  67 0056 90E0      		ldi r25,hi8(0)
+  68 0058 60E0      		ldi r22,lo8(0)
+  69 005a 70E0      		ldi r23,hi8(0)
+  70 005c 0E94 0000 		call turnOnTimers
+  71               	.L2:
+  72 0060 00C0      		rjmp .L2
+  73               	.LFE6:
+  99               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ffr.c
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:18     .text:00000000 main
+
+UNDEFINED SYMBOLS
+setupStepperMotor
+USART_init
+setDirection
+straight
+enableDrive
+turnOnTimers

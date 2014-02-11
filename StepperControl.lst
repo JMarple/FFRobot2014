@@ -1,0 +1,354 @@
+   1               		.file	"StepperControl.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	calculateInitialDelay
+  18               	calculateInitialDelay:
+  19               	.LFB9:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 9B01      		movw r18,r22
+  25 0002 AC01      		movw r20,r24
+  26               	.LM2:
+  27 0004 60E0      		ldi r22,lo8(0x40000000)
+  28 0006 70E0      		ldi r23,hi8(0x40000000)
+  29 0008 80E0      		ldi r24,hlo8(0x40000000)
+  30 000a 90E4      		ldi r25,hhi8(0x40000000)
+  31               	.LVL1:
+  32 000c 0E94 0000 		call __divsf3
+  33               	.LVL2:
+  34 0010 0E94 0000 		call sqrt
+  35 0014 20E0      		ldi r18,lo8(0x48250a00)
+  36 0016 3AE0      		ldi r19,hi8(0x48250a00)
+  37 0018 45E2      		ldi r20,hlo8(0x48250a00)
+  38 001a 58E4      		ldi r21,hhi8(0x48250a00)
+  39 001c 0E94 0000 		call __mulsf3
+  40               	/* epilogue start */
+  41               	.LM3:
+  42 0020 0895      		ret
+  43               	.LFE9:
+  45               	.global	straight
+  47               	straight:
+  48               	.LFB8:
+  49               	.LM4:
+  50               	.LVL3:
+  51 0022 2F92      		push r2
+  52 0024 3F92      		push r3
+  53 0026 4F92      		push r4
+  54 0028 5F92      		push r5
+  55 002a 6F92      		push r6
+  56 002c 7F92      		push r7
+  57 002e 8F92      		push r8
+  58 0030 9F92      		push r9
+  59 0032 AF92      		push r10
+  60 0034 BF92      		push r11
+  61 0036 CF92      		push r12
+  62               	.LVL4:
+  63 0038 DF92      		push r13
+  64 003a EF92      		push r14
+  65               	.LVL5:
+  66 003c FF92      		push r15
+  67 003e 0F93      		push r16
+  68               	.LVL6:
+  69 0040 1F93      		push r17
+  70 0042 CF93      		push r28
+  71 0044 DF93      		push r29
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74 0046 1B01      		movw r2,r22
+  75 0048 2C01      		movw r4,r24
+  76 004a 5901      		movw r10,r18
+  77 004c E801      		movw r28,r16
+  78               	.LVL7:
+  79               	.LM5:
+  80 004e 1092 0000 		sts rightMotor,__zero_reg__
+  81 0052 1092 0000 		sts (rightMotor)+1,__zero_reg__
+  82 0056 1092 0000 		sts (rightMotor)+2,__zero_reg__
+  83 005a 1092 0000 		sts (rightMotor)+3,__zero_reg__
+  84 005e 8091 0000 		lds r24,rightMotor
+  85 0062 9091 0000 		lds r25,(rightMotor)+1
+  86 0066 A091 0000 		lds r26,(rightMotor)+2
+  87 006a B091 0000 		lds r27,(rightMotor)+3
+  88 006e 8093 0000 		sts leftMotor,r24
+  89 0072 9093 0000 		sts (leftMotor)+1,r25
+  90 0076 A093 0000 		sts (leftMotor)+2,r26
+  91 007a B093 0000 		sts (leftMotor)+3,r27
+  92               	.LM6:
+  93 007e 9501      		movw r18,r10
+  94 0080 4427      		clr r20
+  95 0082 37FD      		sbrc r19,7
+  96 0084 4095      		com r20
+  97 0086 542F      		mov r21,r20
+  98               	.LVL8:
+  99 0088 60E9      		ldi r22,lo8(250000)
+ 100 008a 70ED      		ldi r23,hi8(250000)
+ 101 008c 83E0      		ldi r24,hlo8(250000)
+ 102 008e 90E0      		ldi r25,hhi8(250000)
+ 103               	.LVL9:
+ 104 0090 0E94 0000 		call __divmodsi4
+ 105               	.LVL10:
+ 106 0094 CA01      		movw r24,r20
+ 107 0096 B901      		movw r22,r18
+ 108 0098 0E94 0000 		call __floatsisf
+ 109               	.LVL11:
+ 110 009c 6093 0000 		sts rightMotor+12,r22
+ 111 00a0 7093 0000 		sts (rightMotor+12)+1,r23
+ 112 00a4 8093 0000 		sts (rightMotor+12)+2,r24
+ 113 00a8 9093 0000 		sts (rightMotor+12)+3,r25
+ 114 00ac 8091 0000 		lds r24,rightMotor+12
+ 115 00b0 9091 0000 		lds r25,(rightMotor+12)+1
+ 116 00b4 A091 0000 		lds r26,(rightMotor+12)+2
+ 117 00b8 B091 0000 		lds r27,(rightMotor+12)+3
+ 118 00bc 8093 0000 		sts leftMotor+12,r24
+ 119 00c0 9093 0000 		sts (leftMotor+12)+1,r25
+ 120 00c4 A093 0000 		sts (leftMotor+12)+2,r26
+ 121 00c8 B093 0000 		sts (leftMotor+12)+3,r27
+ 122               	.LM7:
+ 123 00cc 0027      		clr r16
+ 124 00ce F7FC      		sbrc r15,7
+ 125 00d0 0095      		com r16
+ 126 00d2 102F      		mov r17,r16
+ 127               	.LVL12:
+ 128 00d4 C801      		movw r24,r16
+ 129 00d6 B701      		movw r22,r14
+ 130 00d8 0E94 0000 		call __floatsisf
+ 131 00dc 0E94 0000 		call calculateInitialDelay
+ 132 00e0 6093 0000 		sts rightMotor+4,r22
+ 133 00e4 7093 0000 		sts (rightMotor+4)+1,r23
+ 134 00e8 8093 0000 		sts (rightMotor+4)+2,r24
+ 135 00ec 9093 0000 		sts (rightMotor+4)+3,r25
+ 136 00f0 8091 0000 		lds r24,rightMotor+4
+ 137 00f4 9091 0000 		lds r25,(rightMotor+4)+1
+ 138 00f8 A091 0000 		lds r26,(rightMotor+4)+2
+ 139 00fc B091 0000 		lds r27,(rightMotor+4)+3
+ 140 0100 8093 0000 		sts leftMotor+4,r24
+ 141 0104 9093 0000 		sts (leftMotor+4)+1,r25
+ 142 0108 A093 0000 		sts (leftMotor+4)+2,r26
+ 143 010c B093 0000 		sts (leftMotor+4)+3,r27
+ 144               	.LM8:
+ 145 0110 1092 0000 		sts (leftMotor+10)+1,__zero_reg__
+ 146 0114 1092 0000 		sts leftMotor+10,__zero_reg__
+ 147               	.LM9:
+ 148 0118 81E0      		ldi r24,lo8(1)
+ 149 011a 90E0      		ldi r25,hi8(1)
+ 150 011c 61E0      		ldi r22,lo8(1)
+ 151 011e 70E0      		ldi r23,hi8(1)
+ 152 0120 0E94 0000 		call turnOnTimers
+ 153               	.LM10:
+ 154 0124 81E0      		ldi r24,lo8(1)
+ 155 0126 90E0      		ldi r25,hi8(1)
+ 156 0128 61E0      		ldi r22,lo8(1)
+ 157 012a 70E0      		ldi r23,hi8(1)
+ 158 012c 0E94 0000 		call enableDrive
+ 159               	.LVL13:
+ 160               	.L4:
+ 161               	.LM11:
+ 162 0130 8091 0000 		lds r24,leftMotor+10
+ 163 0134 9091 0000 		lds r25,(leftMotor+10)+1
+ 164 0138 892B      		or r24,r25
+ 165 013a 01F0      		breq .L4
+ 166               	.LM12:
+ 167 013c B501      		movw r22,r10
+ 168 013e 8827      		clr r24
+ 169 0140 77FD      		sbrc r23,7
+ 170 0142 8095      		com r24
+ 171 0144 982F      		mov r25,r24
+ 172               	.LVL14:
+ 173 0146 0E94 0000 		call __floatsisf
+ 174               	.LVL15:
+ 175 014a 7B01      		movw r14,r22
+ 176 014c 8C01      		movw r16,r24
+ 177               	.LVL16:
+ 178 014e B601      		movw r22,r12
+ 179 0150 8827      		clr r24
+ 180 0152 77FD      		sbrc r23,7
+ 181 0154 8095      		com r24
+ 182 0156 982F      		mov r25,r24
+ 183               	.LVL17:
+ 184 0158 0E94 0000 		call __floatsisf
+ 185               	.LVL18:
+ 186 015c 5B01      		movw r10,r22
+ 187 015e 6C01      		movw r12,r24
+ 188 0160 C801      		movw r24,r16
+ 189 0162 B701      		movw r22,r14
+ 190 0164 A801      		movw r20,r16
+ 191 0166 9701      		movw r18,r14
+ 192 0168 0E94 0000 		call __mulsf3
+ 193 016c 7B01      		movw r14,r22
+ 194 016e 8C01      		movw r16,r24
+ 195 0170 C601      		movw r24,r12
+ 196 0172 B501      		movw r22,r10
+ 197 0174 A601      		movw r20,r12
+ 198 0176 9501      		movw r18,r10
+ 199 0178 0E94 0000 		call __addsf3
+ 200 017c 9B01      		movw r18,r22
+ 201 017e AC01      		movw r20,r24
+ 202 0180 C801      		movw r24,r16
+ 203 0182 B701      		movw r22,r14
+ 204 0184 0E94 0000 		call __divsf3
+ 205 0188 3B01      		movw r6,r22
+ 206 018a 4C01      		movw r8,r24
+ 207 018c BE01      		movw r22,r28
+ 208 018e 8827      		clr r24
+ 209 0190 77FD      		sbrc r23,7
+ 210 0192 8095      		com r24
+ 211 0194 982F      		mov r25,r24
+ 212               	.LVL19:
+ 213 0196 0E94 0000 		call __floatsisf
+ 214               	.LVL20:
+ 215 019a 9B01      		movw r18,r22
+ 216 019c AC01      		movw r20,r24
+ 217 019e 0E94 0000 		call __mulsf3
+ 218 01a2 7B01      		movw r14,r22
+ 219 01a4 8C01      		movw r16,r24
+ 220 01a6 C601      		movw r24,r12
+ 221 01a8 B501      		movw r22,r10
+ 222 01aa 20E0      		ldi r18,lo8(0xc0000000)
+ 223 01ac 30E0      		ldi r19,hi8(0xc0000000)
+ 224 01ae 40E0      		ldi r20,hlo8(0xc0000000)
+ 225 01b0 50EC      		ldi r21,hhi8(0xc0000000)
+ 226 01b2 0E94 0000 		call __mulsf3
+ 227 01b6 9B01      		movw r18,r22
+ 228 01b8 AC01      		movw r20,r24
+ 229 01ba C801      		movw r24,r16
+ 230 01bc B701      		movw r22,r14
+ 231 01be 0E94 0000 		call __divsf3
+ 232 01c2 9B01      		movw r18,r22
+ 233 01c4 AC01      		movw r20,r24
+ 234 01c6 C401      		movw r24,r8
+ 235 01c8 B301      		movw r22,r6
+ 236 01ca 0E94 0000 		call __addsf3
+ 237 01ce 5B01      		movw r10,r22
+ 238 01d0 6C01      		movw r12,r24
+ 239               	.LVL21:
+ 240               	.L5:
+ 241               	.LM13:
+ 242 01d2 6091 0000 		lds r22,leftMotor
+ 243 01d6 7091 0000 		lds r23,(leftMotor)+1
+ 244 01da 8091 0000 		lds r24,(leftMotor)+2
+ 245 01de 9091 0000 		lds r25,(leftMotor)+3
+ 246 01e2 0E94 0000 		call __floatsisf
+ 247 01e6 A601      		movw r20,r12
+ 248 01e8 9501      		movw r18,r10
+ 249 01ea 0E94 0000 		call __addsf3
+ 250 01ee 7B01      		movw r14,r22
+ 251 01f0 8C01      		movw r16,r24
+ 252 01f2 C201      		movw r24,r4
+ 253 01f4 B101      		movw r22,r2
+ 254 01f6 0E94 0000 		call __floatsisf
+ 255 01fa 9B01      		movw r18,r22
+ 256 01fc AC01      		movw r20,r24
+ 257 01fe C801      		movw r24,r16
+ 258 0200 B701      		movw r22,r14
+ 259 0202 0E94 0000 		call __ltsf2
+ 260 0206 87FD      		sbrc r24,7
+ 261 0208 00C0      		rjmp .L5
+ 262               	.LM14:
+ 263 020a 80E0      		ldi r24,lo8(0x45ea6000)
+ 264 020c 90E6      		ldi r25,hi8(0x45ea6000)
+ 265 020e AAEE      		ldi r26,hlo8(0x45ea6000)
+ 266 0210 B5E4      		ldi r27,hhi8(0x45ea6000)
+ 267 0212 8093 0000 		sts rightMotor+12,r24
+ 268 0216 9093 0000 		sts (rightMotor+12)+1,r25
+ 269 021a A093 0000 		sts (rightMotor+12)+2,r26
+ 270 021e B093 0000 		sts (rightMotor+12)+3,r27
+ 271 0222 8091 0000 		lds r24,rightMotor+12
+ 272 0226 9091 0000 		lds r25,(rightMotor+12)+1
+ 273 022a A091 0000 		lds r26,(rightMotor+12)+2
+ 274 022e B091 0000 		lds r27,(rightMotor+12)+3
+ 275 0232 8093 0000 		sts leftMotor+12,r24
+ 276 0236 9093 0000 		sts (leftMotor+12)+1,r25
+ 277 023a A093 0000 		sts (leftMotor+12)+2,r26
+ 278 023e B093 0000 		sts (leftMotor+12)+3,r27
+ 279               	.LM15:
+ 280 0242 1092 0000 		sts (rightMotor+10)+1,__zero_reg__
+ 281 0246 1092 0000 		sts rightMotor+10,__zero_reg__
+ 282 024a 8091 0000 		lds r24,rightMotor+10
+ 283 024e 9091 0000 		lds r25,(rightMotor+10)+1
+ 284 0252 9093 0000 		sts (leftMotor+10)+1,r25
+ 285 0256 8093 0000 		sts leftMotor+10,r24
+ 286               	.LM16:
+ 287 025a C401      		movw r24,r8
+ 288 025c B301      		movw r22,r6
+ 289 025e 0E94 0000 		call __fixsfsi
+ 290 0262 7093 0000 		sts (rightMotor+16)+1,r23
+ 291 0266 6093 0000 		sts rightMotor+16,r22
+ 292 026a 8091 0000 		lds r24,rightMotor+16
+ 293 026e 9091 0000 		lds r25,(rightMotor+16)+1
+ 294 0272 9093 0000 		sts (leftMotor+16)+1,r25
+ 295 0276 8093 0000 		sts leftMotor+16,r24
+ 296               	.L6:
+ 297               	.LM17:
+ 298 027a 8091 0000 		lds r24,leftMotor+10
+ 299 027e 9091 0000 		lds r25,(leftMotor+10)+1
+ 300 0282 892B      		or r24,r25
+ 301 0284 01F0      		breq .L6
+ 302               	.LM18:
+ 303 0286 6091 0000 		lds r22,leftMotor
+ 304 028a 7091 0000 		lds r23,(leftMotor)+1
+ 305 028e 8091 0000 		lds r24,(leftMotor)+2
+ 306 0292 9091 0000 		lds r25,(leftMotor)+3
+ 307 0296 0E94 0000 		call __floatsisf
+ 308 029a 0E94 0000 		call printlnNum
+ 309               	.LM19:
+ 310 029e 80E0      		ldi r24,lo8(0)
+ 311 02a0 90E0      		ldi r25,hi8(0)
+ 312 02a2 60E0      		ldi r22,lo8(0)
+ 313 02a4 70E0      		ldi r23,hi8(0)
+ 314 02a6 0E94 0000 		call turnOnTimers
+ 315               	/* epilogue start */
+ 316               	.LM20:
+ 317 02aa DF91      		pop r29
+ 318 02ac CF91      		pop r28
+ 319 02ae 1F91      		pop r17
+ 320 02b0 0F91      		pop r16
+ 321 02b2 FF90      		pop r15
+ 322 02b4 EF90      		pop r14
+ 323 02b6 DF90      		pop r13
+ 324 02b8 CF90      		pop r12
+ 325 02ba BF90      		pop r11
+ 326 02bc AF90      		pop r10
+ 327               	.LVL22:
+ 328 02be 9F90      		pop r9
+ 329 02c0 8F90      		pop r8
+ 330 02c2 7F90      		pop r7
+ 331 02c4 6F90      		pop r6
+ 332 02c6 5F90      		pop r5
+ 333 02c8 4F90      		pop r4
+ 334 02ca 3F90      		pop r3
+ 335 02cc 2F90      		pop r2
+ 336               	.LVL23:
+ 337 02ce 0895      		ret
+ 338               	.LFE8:
+ 372               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 StepperControl.c
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:18     .text:00000000 calculateInitialDelay
+C:\Users\Justin\AppData\Local\Temp/ccVnQvkn.s:47     .text:00000022 straight
+
+UNDEFINED SYMBOLS
+__divsf3
+sqrt
+__mulsf3
+rightMotor
+leftMotor
+__divmodsi4
+__floatsisf
+turnOnTimers
+enableDrive
+__addsf3
+__ltsf2
+__fixsfsi
+printlnNum

@@ -6,30 +6,17 @@
 
 typedef struct StepperMotor
 {
-	//What should the motor execute
-	volatile int mode;
-	
-	//How many steps so far?
-	long accelCount;
-	long stepCount;
-	long decelCount;
-	
-	//Total Steps for each action
-	int totalAccelSteps;
-	int totalRunSteps;
-	int totalDecelSteps;
+	volatile long stepCount;
 	
 	//How long to delay the motor between steps (TimerFrequency/speed)
-	float currentStepDelay;
+	volatile float currentStepDelay;
 	
-	//Minimum delay that will be calculated for maximumSpeed
-	int minDelay;
+	volatile int delayCounter;
+	volatile int stepAccel;
+	volatile float targetDelay;
 	
-	//Number of steps required for deceleration
-	float decelSteps;
-	int decelStop;
-	
-	int delayCounter;
+	//Temp Testing
+	volatile int tempCount;
 	
 	
 } StepperMotor;
@@ -51,4 +38,5 @@ int calculateNextDelay(struct StepperMotor *motor,volatile uint8_t *shutoffPort)
 int eightBitTimerFix(struct StepperMotor *motor);
 void turnOnTimers(int one, int two);
 void setDirection(int left, int right);
+int accelerateMotorToPoint(struct StepperMotor *motor);
 #endif
