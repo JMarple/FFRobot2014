@@ -716,23 +716,23 @@
  829               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 StepperMotor.c
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:2      *ABS*:0000003f __SREG__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:5      *ABS*:00000034 __CCP__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:18     .text:00000000 accelerateMotorToPoint
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:263    .text:000001d0 enableDrive
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:304    .text:000001f4 setupStepperMotor
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:354    .text:0000022e pulseMotor
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:402    .text:00000254 __vector_7
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:18     .text:00000000 accelerateMotorToPoint
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:263    .text:000001d0 enableDrive
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:304    .text:000001f4 setupStepperMotor
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:354    .text:0000022e pulseMotor
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:402    .text:00000254 __vector_7
                             *COM*:00000012 rightMotor
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:514    .text:00000328 __vector_14
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:514    .text:00000328 __vector_14
                             *COM*:00000012 leftMotor
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:626    .text:000003f8 setDirection
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:656    .text:0000040e eightBitTimerFix
-C:\Users\Justin\AppData\Local\Temp/ccbZ6ZCv.s:701    .text:0000043a turnOnTimers
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:626    .text:000003f8 setDirection
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:656    .text:0000040e eightBitTimerFix
+C:\Users\Justin\AppData\Local\Temp/ccIR7LKi.s:701    .text:0000043a turnOnTimers
 
 UNDEFINED SYMBOLS
 __gtsf2

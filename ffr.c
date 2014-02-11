@@ -16,7 +16,7 @@ int main(void)
 	USART_init();
 	
 	setDirection(0, 0);
-	straight(4000, 0, 1000, 0, 2000, 2000);	
+	straight(5000, 900, 3000, 100, 3000, 2000);	
 	
 	enableDrive(0, 0);
 	turnOnTimers(0, 0);

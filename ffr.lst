@@ -29,23 +29,23 @@
   37 001a 70E0      		ldi r23,hi8(0)
   38 001c 0E94 0000 		call setDirection
   39               	.LM5:
-  40 0020 63E5      		ldi r22,lo8(4691)
-  41 0022 72E1      		ldi r23,hi8(4691)
-  42 0024 80E0      		ldi r24,hlo8(4691)
-  43 0026 90E0      		ldi r25,hhi8(4691)
-  44 0028 40E0      		ldi r20,lo8(0)
-  45 002a 50E0      		ldi r21,hi8(0)
-  46 002c 28EE      		ldi r18,lo8(1000)
-  47 002e 33E0      		ldi r19,hi8(1000)
-  48 0030 00E0      		ldi r16,lo8(0)
-  49 0032 10E0      		ldi r17,hi8(0)
-  50 0034 F8E8      		ldi r31,lo8(5000)
+  40 0020 68E8      		ldi r22,lo8(5000)
+  41 0022 73E1      		ldi r23,hi8(5000)
+  42 0024 80E0      		ldi r24,hlo8(5000)
+  43 0026 90E0      		ldi r25,hhi8(5000)
+  44 0028 44E8      		ldi r20,lo8(900)
+  45 002a 53E0      		ldi r21,hi8(900)
+  46 002c 28EB      		ldi r18,lo8(3000)
+  47 002e 3BE0      		ldi r19,hi8(3000)
+  48 0030 04E6      		ldi r16,lo8(100)
+  49 0032 10E0      		ldi r17,hi8(100)
+  50 0034 F8EB      		ldi r31,lo8(3000)
   51 0036 EF2E      		mov r14,r31
-  52 0038 F3E1      		ldi r31,hi8(5000)
+  52 0038 FBE0      		ldi r31,hi8(3000)
   53 003a FF2E      		mov r15,r31
-  54 003c E8EE      		ldi r30,lo8(1000)
+  54 003c E0ED      		ldi r30,lo8(2000)
   55 003e CE2E      		mov r12,r30
-  56 0040 E3E0      		ldi r30,hi8(1000)
+  56 0040 E7E0      		ldi r30,hi8(2000)
   57 0042 DE2E      		mov r13,r30
   58 0044 0E94 0000 		call straight
   59               	.LM6:
@@ -66,13 +66,13 @@
   99               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 ffr.c
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:2      *ABS*:0000003f __SREG__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:5      *ABS*:00000034 __CCP__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Justin\AppData\Local\Temp/ccO4cSf2.s:18     .text:00000000 main
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:18     .text:00000000 main
 
 UNDEFINED SYMBOLS
 setupStepperMotor
