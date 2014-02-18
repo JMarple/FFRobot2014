@@ -6,78 +6,208 @@
    6               	__tmp_reg__ = 0
    7               	__zero_reg__ = 1
   15               	.Ltext0:
-  16               	.global	main
-  18               	main:
-  19               	.LFB6:
+  16               	.global	startTimer
+  18               	startTimer:
+  19               	.LFB7:
   20               	.LM1:
-  21 0000 CF92      		push r12
-  22 0002 DF92      		push r13
-  23 0004 EF92      		push r14
-  24 0006 FF92      		push r15
-  25 0008 0F93      		push r16
-  26 000a 1F93      		push r17
-  27               	/* prologue: function */
-  28               	/* frame size = 0 */
-  29               	.LM2:
-  30 000c 0E94 0000 		call setupStepperMotor
-  31               	.LM3:
-  32 0010 0E94 0000 		call USART_init
-  33               	.LM4:
-  34 0014 80E0      		ldi r24,lo8(0)
-  35 0016 90E0      		ldi r25,hi8(0)
-  36 0018 60E0      		ldi r22,lo8(0)
-  37 001a 70E0      		ldi r23,hi8(0)
-  38 001c 0E94 0000 		call setDirection
-  39               	.LM5:
-  40 0020 68E8      		ldi r22,lo8(5000)
-  41 0022 73E1      		ldi r23,hi8(5000)
-  42 0024 80E0      		ldi r24,hlo8(5000)
-  43 0026 90E0      		ldi r25,hhi8(5000)
-  44 0028 44E8      		ldi r20,lo8(900)
-  45 002a 53E0      		ldi r21,hi8(900)
-  46 002c 28EB      		ldi r18,lo8(3000)
-  47 002e 3BE0      		ldi r19,hi8(3000)
-  48 0030 04E6      		ldi r16,lo8(100)
-  49 0032 10E0      		ldi r17,hi8(100)
-  50 0034 F8EB      		ldi r31,lo8(3000)
-  51 0036 EF2E      		mov r14,r31
-  52 0038 FBE0      		ldi r31,hi8(3000)
-  53 003a FF2E      		mov r15,r31
-  54 003c E0ED      		ldi r30,lo8(2000)
-  55 003e CE2E      		mov r12,r30
-  56 0040 E7E0      		ldi r30,hi8(2000)
-  57 0042 DE2E      		mov r13,r30
-  58 0044 0E94 0000 		call straight
-  59               	.LM6:
-  60 0048 80E0      		ldi r24,lo8(0)
-  61 004a 90E0      		ldi r25,hi8(0)
-  62 004c 60E0      		ldi r22,lo8(0)
-  63 004e 70E0      		ldi r23,hi8(0)
-  64 0050 0E94 0000 		call enableDrive
-  65               	.LM7:
-  66 0054 80E0      		ldi r24,lo8(0)
-  67 0056 90E0      		ldi r25,hi8(0)
-  68 0058 60E0      		ldi r22,lo8(0)
-  69 005a 70E0      		ldi r23,hi8(0)
-  70 005c 0E94 0000 		call turnOnTimers
-  71               	.L2:
-  72 0060 00C0      		rjmp .L2
-  73               	.LFE6:
-  99               	.Letext0:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 89E0      		ldi r24,lo8(9)
+  25 0002 8093 8100 		sts 129,r24
+  26               	.LM3:
+  27 0006 80E8      		ldi r24,lo8(16000)
+  28 0008 9EE3      		ldi r25,hi8(16000)
+  29 000a 9093 8900 		sts (136)+1,r25
+  30 000e 8093 8800 		sts 136,r24
+  31               	.LM4:
+  32 0012 82E0      		ldi r24,lo8(2)
+  33 0014 8093 6F00 		sts 111,r24
+  34               	.LM5:
+  35 0018 1092 0000 		sts milliseconds,__zero_reg__
+  36 001c 1092 0000 		sts (milliseconds)+1,__zero_reg__
+  37 0020 1092 0000 		sts (milliseconds)+2,__zero_reg__
+  38 0024 1092 0000 		sts (milliseconds)+3,__zero_reg__
+  39               	/* epilogue start */
+  40               	.LM6:
+  41 0028 0895      		ret
+  42               	.LFE7:
+  44               	.global	__vector_11
+  46               	__vector_11:
+  47               	.LFB8:
+  48               	.LM7:
+  49 002a 1F92      		push __zero_reg__
+  50 002c 0F92      		push r0
+  51 002e 0FB6      		in r0,__SREG__
+  52 0030 0F92      		push r0
+  53 0032 1124      		clr __zero_reg__
+  54 0034 8F93      		push r24
+  55 0036 9F93      		push r25
+  56 0038 AF93      		push r26
+  57 003a BF93      		push r27
+  58               	/* prologue: Signal */
+  59               	/* frame size = 0 */
+  60               	.LM8:
+  61 003c 8091 0000 		lds r24,milliseconds
+  62 0040 9091 0000 		lds r25,(milliseconds)+1
+  63 0044 A091 0000 		lds r26,(milliseconds)+2
+  64 0048 B091 0000 		lds r27,(milliseconds)+3
+  65 004c 0196      		adiw r24,1
+  66 004e A11D      		adc r26,__zero_reg__
+  67 0050 B11D      		adc r27,__zero_reg__
+  68 0052 8093 0000 		sts milliseconds,r24
+  69 0056 9093 0000 		sts (milliseconds)+1,r25
+  70 005a A093 0000 		sts (milliseconds)+2,r26
+  71 005e B093 0000 		sts (milliseconds)+3,r27
+  72               	/* epilogue start */
+  73               	.LM9:
+  74 0062 BF91      		pop r27
+  75 0064 AF91      		pop r26
+  76 0066 9F91      		pop r25
+  77 0068 8F91      		pop r24
+  78 006a 0F90      		pop r0
+  79 006c 0FBE      		out __SREG__,r0
+  80 006e 0F90      		pop r0
+  81 0070 1F90      		pop __zero_reg__
+  82 0072 1895      		reti
+  83               	.LFE8:
+  85               	.global	main
+  87               	main:
+  88               	.LFB6:
+  89               	.LM10:
+  90 0074 CF92      		push r12
+  91 0076 DF92      		push r13
+  92 0078 EF92      		push r14
+  93 007a FF92      		push r15
+  94 007c 0F93      		push r16
+  95 007e 1F93      		push r17
+  96               	/* prologue: function */
+  97               	/* frame size = 0 */
+  98               	.LM11:
+  99 0080 0E94 0000 		call setupStepperMotor
+ 100               	.LBB15:
+ 101               	.LBB16:
+ 102               	.LM12:
+ 103 0084 89E0      		ldi r24,lo8(9)
+ 104 0086 8093 8100 		sts 129,r24
+ 105               	.LM13:
+ 106 008a 80E8      		ldi r24,lo8(16000)
+ 107 008c 9EE3      		ldi r25,hi8(16000)
+ 108 008e 9093 8900 		sts (136)+1,r25
+ 109 0092 8093 8800 		sts 136,r24
+ 110               	.LM14:
+ 111 0096 82E0      		ldi r24,lo8(2)
+ 112 0098 8093 6F00 		sts 111,r24
+ 113               	.LM15:
+ 114 009c 1092 0000 		sts milliseconds,__zero_reg__
+ 115 00a0 1092 0000 		sts (milliseconds)+1,__zero_reg__
+ 116 00a4 1092 0000 		sts (milliseconds)+2,__zero_reg__
+ 117 00a8 1092 0000 		sts (milliseconds)+3,__zero_reg__
+ 118               	.LBE16:
+ 119               	.LBE15:
+ 120               	.LM16:
+ 121 00ac 0E94 0000 		call USART_init
+ 122               	.LM17:
+ 123 00b0 81E0      		ldi r24,lo8(1)
+ 124 00b2 90E0      		ldi r25,hi8(1)
+ 125 00b4 61E0      		ldi r22,lo8(1)
+ 126 00b6 70E0      		ldi r23,hi8(1)
+ 127 00b8 0E94 0000 		call turnOnTimers
+ 128               	.LM18:
+ 129 00bc 81E0      		ldi r24,lo8(1)
+ 130 00be 90E0      		ldi r25,hi8(1)
+ 131 00c0 61E0      		ldi r22,lo8(1)
+ 132 00c2 70E0      		ldi r23,hi8(1)
+ 133 00c4 0E94 0000 		call setDirection
+ 134               	.LM19:
+ 135 00c8 81E0      		ldi r24,lo8(1)
+ 136 00ca 90E0      		ldi r25,hi8(1)
+ 137 00cc 61E0      		ldi r22,lo8(1)
+ 138 00ce 70E0      		ldi r23,hi8(1)
+ 139 00d0 0E94 0000 		call enableDrive
+ 140               	.LM20:
+ 141 00d4 68EE      		ldi r22,lo8(1000)
+ 142 00d6 73E0      		ldi r23,hi8(1000)
+ 143 00d8 80E0      		ldi r24,hlo8(1000)
+ 144 00da 90E0      		ldi r25,hhi8(1000)
+ 145 00dc 40E0      		ldi r20,lo8(0)
+ 146 00de 50E0      		ldi r21,hi8(0)
+ 147 00e0 28EE      		ldi r18,lo8(1000)
+ 148 00e2 33E0      		ldi r19,hi8(1000)
+ 149 00e4 00E0      		ldi r16,lo8(0)
+ 150 00e6 10E0      		ldi r17,hi8(0)
+ 151 00e8 F8EE      		ldi r31,lo8(1000)
+ 152 00ea EF2E      		mov r14,r31
+ 153 00ec F3E0      		ldi r31,hi8(1000)
+ 154 00ee FF2E      		mov r15,r31
+ 155 00f0 E8EB      		ldi r30,lo8(3000)
+ 156 00f2 CE2E      		mov r12,r30
+ 157 00f4 EBE0      		ldi r30,hi8(3000)
+ 158 00f6 DE2E      		mov r13,r30
+ 159 00f8 0E94 0000 		call straight
+ 160 00fc 80E0      		ldi r24,lo8(0)
+ 161 00fe 90E0      		ldi r25,hi8(0)
+ 162               	.LVL0:
+ 163               	.LBB17:
+ 164               	.LBB18:
+ 165               	.LBB19:
+ 166               	.LBB20:
+ 167               	.LBB21:
+ 168               	.LM21:
+ 169 0100 20EA      		ldi r18,lo8(4000)
+ 170 0102 3FE0      		ldi r19,hi8(4000)
+ 171               	.L6:
+ 172 0104 F901      		movw r30,r18
+ 173               	.LVL1:
+ 174               	/* #APP */
+ 175               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 176 0106 3197      		1: sbiw r30,1
+ 177 0108 01F4      		brne 1b
+ 178               	 ;  0 "" 2
+ 179               	/* #NOAPP */
+ 180               	.LBE21:
+ 181               	.LBE20:
+ 182               	.LBE19:
+ 183               	.LBE18:
+ 184               	.LM22:
+ 185 010a 0196      		adiw r24,1
+ 186 010c 8A3F      		cpi r24,250
+ 187 010e 9105      		cpc r25,__zero_reg__
+ 188 0110 01F4      		brne .L6
+ 189               	.LBE17:
+ 190               	.LM23:
+ 191 0112 5B9A      		sbi 43-32,3
+ 192               	.LM24:
+ 193 0114 80E0      		ldi r24,lo8(0)
+ 194 0116 90E0      		ldi r25,hi8(0)
+ 195               	.LVL2:
+ 196 0118 60E0      		ldi r22,lo8(0)
+ 197 011a 70E0      		ldi r23,hi8(0)
+ 198 011c 0E94 0000 		call enableDrive
+ 199               	.LVL3:
+ 200               	.L7:
+ 201 0120 00C0      		rjmp .L7
+ 202               	.LFE6:
+ 204               		.comm milliseconds,4,1
+ 245               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 ffr.c
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:2      *ABS*:0000003f __SREG__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:5      *ABS*:00000034 __CCP__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Justin\AppData\Local\Temp/cci2XGtT.s:18     .text:00000000 main
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:18     .text:00000000 startTimer
+                            *COM*:00000004 milliseconds
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:46     .text:0000002a __vector_11
+C:\Users\Justin\AppData\Local\Temp/ccVkag8k.s:87     .text:00000074 main
 
 UNDEFINED SYMBOLS
 setupStepperMotor
 USART_init
-setDirection
-straight
-enableDrive
 turnOnTimers
+setDirection
+enableDrive
+straight
+__do_clear_bss

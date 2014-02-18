@@ -7,45 +7,42 @@
 
 extern StepperMotor leftMotor;
 extern StepperMotor rightMotor;
+extern volatile unsigned long milliseconds;
 
 void straight(long stepTarget, int inSpeed, int maxSpeed, int exitSpeed, int accel, int decel)
 {	
-	//Set Acceleration
-	setAccel(&leftMotor, inSpeed, maxSpeed, accel);
-	setAccel(&rightMotor, inSpeed, maxSpeed, accel);
-	
-	turnOnTimers(1, 1);	
-	enableDrive(1, 1);
-	
-	while(motorStillRunning(&leftMotor));
-	
+	while(inSpeed + accel*(float)(milliseconds/1000.0) < maxSpeed)
+	{
+		leftMotor.currentStepDelay = getDelayFromVelocity(inSpeed + accel*(float)(milliseconds/1000.0));
+		rightMotor.currentStepDelay = getDelayFromVelocity(inSpeed + accel*(float)(milliseconds/1000.0));
+		_delay_ms(1);
+	}	
 	//Calculate when to start decelerating
 	float decelSteps = (float)maxSpeed * (float)maxSpeed / (2.0 * decel) - (float)exitSpeed * (float)exitSpeed / (2.0 * decel);
-	
-	while(leftMotor.stepCount + decelSteps < stepTarget);
-	
+
+	//Decelerate n stuff
+	//while(leftMotor.stepCount + decelSteps < stepTarget);
+
 	//Set Deceleration
-	setDecel(&leftMotor, maxSpeed, exitSpeed, decel);
-	setDecel(&rightMotor, maxSpeed, exitSpeed, decel);
-	
-	while(motorStillRunning(&leftMotor));
-	turnOnTimers(0, 0);
-		
+	//setDecel(&leftMotor, maxSpeed, exitSpeed, decel);
+	//setDecel(&rightMotor, maxSpeed, exitSpeed, decel);
+
+	//while(motorStillRunning(&leftMotor));
 }
 
 void setAccel(struct StepperMotor *motor, int inSpeed, int maxSpeed, int accel)
 {
+	motor->stepAccel = 0;
 	motor->targetDelay = TIMER_FREQUENCY / maxSpeed;	
 	motor->tempCount = 0;
 	motor->currentStepDelay = 0.676 * TIMER_FREQUENCY * sqrt(2.0 / (float)accel);
-
+	
 	for(int i = 0; i < (float)inSpeed * (float)inSpeed / (2.0 * (float)accel); i++)
 	{
 		motor->tempCount++;
 		motor->currentStepDelay -= (float)(2.0 * motor->currentStepDelay) / (float)(4.0 * 	motor->tempCount + 1);
 	}	
-	
-}
+}		
 
 void setDecel(struct StepperMotor *motor, int maxSpeed, int exitSpeed, int decel)
 {

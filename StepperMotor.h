@@ -8,16 +8,13 @@ typedef struct StepperMotor
 {
 	volatile long stepCount;
 	
-	//How long to delay the motor between steps (TimerFrequency/speed)
 	volatile float currentStepDelay;
 	
-	volatile int delayCounter;
-	volatile int stepAccel;
+	volatile float delayCounter;
+	volatile float stepAccel;
 	volatile float targetDelay;
 	
-	//Temp Testing
-	volatile int tempCount;
-	
+	volatile long tempCount;	
 	
 } StepperMotor;
 
@@ -39,4 +36,5 @@ int eightBitTimerFix(struct StepperMotor *motor);
 void turnOnTimers(int one, int two);
 void setDirection(int left, int right);
 int accelerateMotorToPoint(struct StepperMotor *motor);
+int getDelayFromVelocity(int stepsPerSecond);
 #endif
