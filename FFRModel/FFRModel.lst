@@ -1,0 +1,302 @@
+   1               		.file	"FFRModel.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	startTimer
+  18               	startTimer:
+  19               	.LFB10:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 89E0      		ldi r24,lo8(9)
+  25 0002 8093 8100 		sts 129,r24
+  26               	.LM3:
+  27 0006 80E8      		ldi r24,lo8(16000)
+  28 0008 9EE3      		ldi r25,hi8(16000)
+  29 000a 9093 8900 		sts (136)+1,r25
+  30 000e 8093 8800 		sts 136,r24
+  31               	.LM4:
+  32 0012 82E0      		ldi r24,lo8(2)
+  33 0014 8093 6F00 		sts 111,r24
+  34               	.LM5:
+  35 0018 1092 0000 		sts milliseconds,__zero_reg__
+  36 001c 1092 0000 		sts (milliseconds)+1,__zero_reg__
+  37 0020 1092 0000 		sts (milliseconds)+2,__zero_reg__
+  38 0024 1092 0000 		sts (milliseconds)+3,__zero_reg__
+  39               	/* epilogue start */
+  40               	.LM6:
+  41 0028 0895      		ret
+  42               	.LFE10:
+  44               	.global	__vector_11
+  46               	__vector_11:
+  47               	.LFB11:
+  48               	.LM7:
+  49 002a 1F92      		push __zero_reg__
+  50 002c 0F92      		push r0
+  51 002e 0FB6      		in r0,__SREG__
+  52 0030 0F92      		push r0
+  53 0032 1124      		clr __zero_reg__
+  54 0034 8F93      		push r24
+  55 0036 9F93      		push r25
+  56 0038 AF93      		push r26
+  57 003a BF93      		push r27
+  58               	/* prologue: Signal */
+  59               	/* frame size = 0 */
+  60               	.LM8:
+  61 003c 8091 0000 		lds r24,milliseconds
+  62 0040 9091 0000 		lds r25,(milliseconds)+1
+  63 0044 A091 0000 		lds r26,(milliseconds)+2
+  64 0048 B091 0000 		lds r27,(milliseconds)+3
+  65 004c 0196      		adiw r24,1
+  66 004e A11D      		adc r26,__zero_reg__
+  67 0050 B11D      		adc r27,__zero_reg__
+  68 0052 8093 0000 		sts milliseconds,r24
+  69 0056 9093 0000 		sts (milliseconds)+1,r25
+  70 005a A093 0000 		sts (milliseconds)+2,r26
+  71 005e B093 0000 		sts (milliseconds)+3,r27
+  72               	/* epilogue start */
+  73               	.LM9:
+  74 0062 BF91      		pop r27
+  75 0064 AF91      		pop r26
+  76 0066 9F91      		pop r25
+  77 0068 8F91      		pop r24
+  78 006a 0F90      		pop r0
+  79 006c 0FBE      		out __SREG__,r0
+  80 006e 0F90      		pop r0
+  81 0070 1F90      		pop __zero_reg__
+  82 0072 1895      		reti
+  83               	.LFE11:
+  85               	.global	stopRobot
+  87               	stopRobot:
+  88               	.LFB9:
+  89               	.LM10:
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92               	.LM11:
+  93 0074 80E0      		ldi r24,lo8(0)
+  94 0076 90E0      		ldi r25,hi8(0)
+  95 0078 60E0      		ldi r22,lo8(0)
+  96 007a 70E0      		ldi r23,hi8(0)
+  97 007c 0E94 0000 		call enableDrive
+  98               	.LM12:
+  99 0080 80E0      		ldi r24,lo8(0)
+ 100 0082 90E0      		ldi r25,hi8(0)
+ 101 0084 60E0      		ldi r22,lo8(0)
+ 102 0086 70E0      		ldi r23,hi8(0)
+ 103 0088 0E94 0000 		call turnOnTimers
+ 104               	.L6:
+ 105 008c 00C0      		rjmp .L6
+ 106               	.LFE9:
+ 108               	.global	initRobot
+ 110               	initRobot:
+ 111               	.LFB8:
+ 112               	.LM13:
+ 113               	/* prologue: function */
+ 114               	/* frame size = 0 */
+ 115               	.LM14:
+ 116 008e 0E94 0000 		call setupStepperMotor
+ 117               	.LBB4:
+ 118               	.LBB5:
+ 119               	.LM15:
+ 120 0092 89E0      		ldi r24,lo8(9)
+ 121 0094 8093 8100 		sts 129,r24
+ 122               	.LM16:
+ 123 0098 80E8      		ldi r24,lo8(16000)
+ 124 009a 9EE3      		ldi r25,hi8(16000)
+ 125 009c 9093 8900 		sts (136)+1,r25
+ 126 00a0 8093 8800 		sts 136,r24
+ 127               	.LM17:
+ 128 00a4 82E0      		ldi r24,lo8(2)
+ 129 00a6 8093 6F00 		sts 111,r24
+ 130               	.LM18:
+ 131 00aa 1092 0000 		sts milliseconds,__zero_reg__
+ 132 00ae 1092 0000 		sts (milliseconds)+1,__zero_reg__
+ 133 00b2 1092 0000 		sts (milliseconds)+2,__zero_reg__
+ 134 00b6 1092 0000 		sts (milliseconds)+3,__zero_reg__
+ 135               	.LBE5:
+ 136               	.LBE4:
+ 137               	.LM19:
+ 138 00ba 0E94 0000 		call USART_init
+ 139               	.LM20:
+ 140 00be 81E0      		ldi r24,lo8(1)
+ 141 00c0 90E0      		ldi r25,hi8(1)
+ 142 00c2 61E0      		ldi r22,lo8(1)
+ 143 00c4 70E0      		ldi r23,hi8(1)
+ 144 00c6 0E94 0000 		call turnOnTimers
+ 145               	.LM21:
+ 146 00ca 81E0      		ldi r24,lo8(1)
+ 147 00cc 90E0      		ldi r25,hi8(1)
+ 148 00ce 61E0      		ldi r22,lo8(1)
+ 149 00d0 70E0      		ldi r23,hi8(1)
+ 150 00d2 0E94 0000 		call setDirection
+ 151               	.LM22:
+ 152 00d6 81E0      		ldi r24,lo8(1)
+ 153 00d8 90E0      		ldi r25,hi8(1)
+ 154 00da 61E0      		ldi r22,lo8(1)
+ 155 00dc 70E0      		ldi r23,hi8(1)
+ 156 00de 0E94 0000 		call enableDrive
+ 157               	/* epilogue start */
+ 158               	.LM23:
+ 159 00e2 0895      		ret
+ 160               	.LFE8:
+ 162               	.global	rotateDegrees
+ 164               	rotateDegrees:
+ 165               	.LFB7:
+ 166               	.LM24:
+ 167               	.LVL0:
+ 168 00e4 CF92      		push r12
+ 169 00e6 DF92      		push r13
+ 170 00e8 EF92      		push r14
+ 171 00ea FF92      		push r15
+ 172 00ec 0F93      		push r16
+ 173 00ee 1F93      		push r17
+ 174               	/* prologue: function */
+ 175               	/* frame size = 0 */
+ 176 00f0 7B01      		movw r14,r22
+ 177 00f2 8C01      		movw r16,r24
+ 178               	.LM25:
+ 179 00f4 20E0      		ldi r18,lo8(0x0)
+ 180 00f6 30E0      		ldi r19,hi8(0x0)
+ 181 00f8 40E0      		ldi r20,hlo8(0x0)
+ 182 00fa 50E0      		ldi r21,hhi8(0x0)
+ 183 00fc 0E94 0000 		call __ltsf2
+ 184               	.LVL1:
+ 185 0100 8823      		tst r24
+ 186 0102 04F4      		brge .L16
+ 187               	.LM26:
+ 188 0104 81E0      		ldi r24,lo8(1)
+ 189 0106 90E0      		ldi r25,hi8(1)
+ 190 0108 60E0      		ldi r22,lo8(0)
+ 191 010a 70E0      		ldi r23,hi8(0)
+ 192 010c 0E94 0000 		call setDirection
+ 193               	.LM27:
+ 194 0110 17FB      		bst r17,7
+ 195 0112 1095      		com r17
+ 196 0114 17F9      		bld r17,7
+ 197 0116 1095      		com r17
+ 198 0118 00C0      		rjmp .L13
+ 199               	.L16:
+ 200               	.LM28:
+ 201 011a 80E0      		ldi r24,lo8(0)
+ 202 011c 90E0      		ldi r25,hi8(0)
+ 203 011e 60E0      		ldi r22,lo8(0)
+ 204 0120 70E0      		ldi r23,hi8(0)
+ 205 0122 0E94 0000 		call setDirection
+ 206               	.L13:
+ 207               	.LM29:
+ 208 0126 C801      		movw r24,r16
+ 209 0128 B701      		movw r22,r14
+ 210 012a 20E0      		ldi r18,lo8(0x42200000)
+ 211 012c 30E0      		ldi r19,hi8(0x42200000)
+ 212 012e 40E2      		ldi r20,hlo8(0x42200000)
+ 213 0130 52E4      		ldi r21,hhi8(0x42200000)
+ 214 0132 0E94 0000 		call __mulsf3
+ 215 0136 0E94 0000 		call __fixsfsi
+ 216 013a 40E0      		ldi r20,lo8(0)
+ 217 013c 50E0      		ldi r21,hi8(0)
+ 218 013e 28EE      		ldi r18,lo8(1000)
+ 219 0140 33E0      		ldi r19,hi8(1000)
+ 220 0142 00E0      		ldi r16,lo8(0)
+ 221 0144 10E0      		ldi r17,hi8(0)
+ 222 0146 F8EE      		ldi r31,lo8(1000)
+ 223 0148 EF2E      		mov r14,r31
+ 224 014a F3E0      		ldi r31,hi8(1000)
+ 225 014c FF2E      		mov r15,r31
+ 226               	.LVL2:
+ 227 014e E8EE      		ldi r30,lo8(1000)
+ 228 0150 CE2E      		mov r12,r30
+ 229 0152 E3E0      		ldi r30,hi8(1000)
+ 230 0154 DE2E      		mov r13,r30
+ 231 0156 0E94 0000 		call straight
+ 232               	/* epilogue start */
+ 233               	.LM30:
+ 234 015a 1F91      		pop r17
+ 235 015c 0F91      		pop r16
+ 236 015e FF90      		pop r15
+ 237 0160 EF90      		pop r14
+ 238 0162 DF90      		pop r13
+ 239 0164 CF90      		pop r12
+ 240 0166 0895      		ret
+ 241               	.LFE7:
+ 243               	.global	moveForward
+ 245               	moveForward:
+ 246               	.LFB6:
+ 247               	.LM31:
+ 248 0168 CF92      		push r12
+ 249 016a DF92      		push r13
+ 250 016c EF92      		push r14
+ 251 016e FF92      		push r15
+ 252 0170 0F93      		push r16
+ 253 0172 1F93      		push r17
+ 254               	/* prologue: function */
+ 255               	/* frame size = 0 */
+ 256               	.LM32:
+ 257 0174 80E0      		ldi r24,lo8(0)
+ 258 0176 90E0      		ldi r25,hi8(0)
+ 259 0178 60E0      		ldi r22,lo8(0)
+ 260 017a 70E0      		ldi r23,hi8(0)
+ 261 017c 0E94 0000 		call setDirection
+ 262               	.LM33:
+ 263 0180 68EC      		ldi r22,lo8(200)
+ 264 0182 70E0      		ldi r23,hi8(200)
+ 265 0184 80E0      		ldi r24,hlo8(200)
+ 266 0186 90E0      		ldi r25,hhi8(200)
+ 267 0188 40E0      		ldi r20,lo8(0)
+ 268 018a 50E0      		ldi r21,hi8(0)
+ 269 018c 28EE      		ldi r18,lo8(1000)
+ 270 018e 33E0      		ldi r19,hi8(1000)
+ 271 0190 00E0      		ldi r16,lo8(0)
+ 272 0192 10E0      		ldi r17,hi8(0)
+ 273 0194 B8EE      		ldi r27,lo8(1000)
+ 274 0196 EB2E      		mov r14,r27
+ 275 0198 B3E0      		ldi r27,hi8(1000)
+ 276 019a FB2E      		mov r15,r27
+ 277 019c A8EE      		ldi r26,lo8(1000)
+ 278 019e CA2E      		mov r12,r26
+ 279 01a0 A3E0      		ldi r26,hi8(1000)
+ 280 01a2 DA2E      		mov r13,r26
+ 281 01a4 0E94 0000 		call straight
+ 282               	/* epilogue start */
+ 283               	.LM34:
+ 284 01a8 1F91      		pop r17
+ 285 01aa 0F91      		pop r16
+ 286 01ac FF90      		pop r15
+ 287 01ae EF90      		pop r14
+ 288 01b0 DF90      		pop r13
+ 289 01b2 CF90      		pop r12
+ 290 01b4 0895      		ret
+ 291               	.LFE6:
+ 293               		.comm milliseconds,4,1
+ 358               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 FFRModel.c
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:18     .text:00000000 startTimer
+                            *COM*:00000004 milliseconds
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:46     .text:0000002a __vector_11
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:87     .text:00000074 stopRobot
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:110    .text:0000008e initRobot
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:164    .text:000000e4 rotateDegrees
+C:\Users\Justin\AppData\Local\Temp/cc8Mcw2E.s:245    .text:00000168 moveForward
+
+UNDEFINED SYMBOLS
+enableDrive
+turnOnTimers
+setupStepperMotor
+USART_init
+setDirection
+__ltsf2
+__mulsf3
+__fixsfsi
+straight
+__do_clear_bss

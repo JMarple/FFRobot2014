@@ -1,0 +1,89 @@
+   1               		.file	"FFRModel_Sensors.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	setupADC
+  18               	setupADC:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 80E4      		ldi r24,lo8(64)
+  25 0002 8093 7C00 		sts 124,r24
+  26               	.LM3:
+  27 0006 86E8      		ldi r24,lo8(-122)
+  28 0008 8093 7A00 		sts 122,r24
+  29               	.LM4:
+  30 000c 8AB1      		in r24,42-32
+  31 000e 8361      		ori r24,lo8(19)
+  32 0010 8AB9      		out 42-32,r24
+  33               	/* epilogue start */
+  34               	.LM5:
+  35 0012 0895      		ret
+  36               	.LFE6:
+  38               	.global	ReadADC
+  40               	ReadADC:
+  41               	.LFB8:
+  42               	.LM6:
+  43               	.LVL0:
+  44               	/* prologue: function */
+  45               	/* frame size = 0 */
+  46               	.LM7:
+  47 0014 8770      		andi r24,lo8(7)
+  48               	.LVL1:
+  49 0016 8064      		ori r24,lo8(64)
+  50 0018 8093 7C00 		sts 124,r24
+  51               	.LM8:
+  52 001c 8091 7A00 		lds r24,122
+  53 0020 8064      		ori r24,lo8(64)
+  54 0022 8093 7A00 		sts 122,r24
+  55               	.L4:
+  56               	.LM9:
+  57 0026 8091 7A00 		lds r24,122
+  58 002a 84FF      		sbrs r24,4
+  59 002c 00C0      		rjmp .L4
+  60               	.LM10:
+  61 002e 8091 7A00 		lds r24,122
+  62 0032 8061      		ori r24,lo8(16)
+  63 0034 8093 7A00 		sts 122,r24
+  64               	.LM11:
+  65 0038 2091 7800 		lds r18,120
+  66 003c 3091 7900 		lds r19,(120)+1
+  67               	.LM12:
+  68 0040 C901      		movw r24,r18
+  69               	/* epilogue start */
+  70 0042 0895      		ret
+  71               	.LFE8:
+  73               	.global	getIRSensorValue
+  75               	getIRSensorValue:
+  76               	.LFB7:
+  77               	.LM13:
+  78               	.LVL2:
+  79               	/* prologue: function */
+  80               	/* frame size = 0 */
+  81               	.LM14:
+  82 0044 0E94 0000 		call ReadADC
+  83               	.LVL3:
+  84               	/* epilogue start */
+  85               	.LM15:
+  86 0048 0895      		ret
+  87               	.LFE7:
+ 129               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 FFRModel_Sensors.c
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:18     .text:00000000 setupADC
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:40     .text:00000014 ReadADC
+C:\Users\Justin\AppData\Local\Temp/ccTGMJgh.s:75     .text:00000044 getIRSensorValue
+
+NO UNDEFINED SYMBOLS

@@ -1,7 +1,3 @@
-ffr.o: ffr.c StepperMotor.h StepperControl.h USART.h
+ffr.o: ffr.c FFRModel/FFRModel.h
 
-StepperMotor.h:
-
-StepperControl.h:
-
-USART.h:
+FFRModel/FFRModel.h:

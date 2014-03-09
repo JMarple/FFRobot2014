@@ -1,4 +1,4 @@
-/*
+ /*
  * Stepper Motor Controller - For Trinity Firefighting Robot and Micromouse	
  *
  * @author Justin Marple, Eli Siskind
@@ -10,15 +10,13 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <math.h>
-#include "StepperMotor.h"
+#include "FFRModel_StepperMotor.h"
 
 
 
 StepperMotor leftMotor;
 StepperMotor rightMotor;
 extern long unsigned microseconds;
-
-
 
 /* LEFT MOTOR CONTROL */
 ISR(TIMER0_COMPA_vect)

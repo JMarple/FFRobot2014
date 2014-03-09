@@ -1,4 +1,4 @@
-   1               		.file	"StepperMotor.c"
+   1               		.file	"FFRModel_StepperMotor.c"
    2               	__SREG__ = 0x3f
    3               	__SP_H__ = 0x3e
    4               	__SP_L__ = 0x3d
@@ -79,7 +79,7 @@
   89 004a 1092 B400 		sts 180,__zero_reg__
   90               	.LM21:
   91               	/* #APP */
-  92               	 ;  119 "StepperMotor.c" 1
+  92               	 ;  117 "FFRModel/FFRModel_StepperMotor.c" 1
   93 004e 7894      		sei
   94               	 ;  0 "" 2
   95               	.LM22:
@@ -633,24 +633,24 @@
  658               		.comm rightMotor,24,1
  747               	.Letext0:
 DEFINED SYMBOLS
-                            *ABS*:00000000 StepperMotor.c
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:2      *ABS*:0000003f __SREG__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:5      *ABS*:00000034 __CCP__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:18     .text:00000000 enableDrive
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:59     .text:00000024 setupStepperMotor
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:109    .text:0000005e pulseMotor
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:157    .text:00000084 __vector_7
+                            *ABS*:00000000 FFRModel_StepperMotor.c
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:2      *ABS*:0000003f __SREG__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:5      *ABS*:00000034 __CCP__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:18     .text:00000000 enableDrive
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:59     .text:00000024 setupStepperMotor
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:109    .text:0000005e pulseMotor
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:157    .text:00000084 __vector_7
                             *COM*:00000018 rightMotor
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:320    .text:00000206 __vector_14
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:320    .text:00000206 __vector_14
                             *COM*:00000018 leftMotor
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:483    .text:00000380 setDirection
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:513    .text:00000396 eightBitTimerFix
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:582    .text:000003fa turnOnTimers
-C:\Users\Justin\AppData\Local\Temp/ccl3wiqV.s:622    .text:00000422 getDelayFromVelocity
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:483    .text:00000380 setDirection
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:513    .text:00000396 eightBitTimerFix
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:582    .text:000003fa turnOnTimers
+C:\Users\Justin\AppData\Local\Temp/ccQvSUny.s:622    .text:00000422 getDelayFromVelocity
 
 UNDEFINED SYMBOLS
 __eqsf2

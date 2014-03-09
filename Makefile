@@ -81,9 +81,11 @@ OBJDIR = .
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c
-SRC += StepperMotor.c
+SRC += FFRModel/FFRModel.c
+SRC += FFRModel/FFRModel_StepperMotor.c
 SRC += USART.c
-SRC += StepperControl.c
+SRC += FFRModel/FFRModel_StepperControl.c
+SRC += FFRModel/FFRModel_Sensors.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
